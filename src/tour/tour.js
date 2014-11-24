@@ -45,6 +45,14 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
   this.end = function () {
     setCurrentStep( 0 );
   };
+
+  this.stepsCount = function () {
+    return Object.keys(steps).length;
+  };
+
+  this.steps = function () {
+    return steps;
+  };
 }])
 
 .directive( 'stepTextPopup', ['$tour', function ( $tour ) {
@@ -54,8 +62,22 @@ angular.module( 'mm.foundation.tour', [ 'mm.foundation.position', 'mm.foundation
     scope: { title: '@', content: '@', placement: '@', animation: '&', isOpen: '&' },
     templateUrl: 'template/tour/tour.html',
     link: function (scope, element) {
+      scope.options = {};
+
       scope.isLastStep = function () {
         return !$tour.has( $tour.current() + 1 );
+      };
+
+      scope.stepsCount = function () {
+        return $tour.stepsCount();
+      };
+
+      scope.steps = function () {
+        return $tour.steps();
+      };
+
+      scope.isVisited = function (index) {
+        return $tour.current() >= index;
       };
 
       scope.endTour = function () {

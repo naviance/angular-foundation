@@ -60,6 +60,10 @@ describe('tour', function() {
         expect($tour.current()).toEqual(1);
       });
 
+      it('returns the number of steps', function() {
+        expect($tour.stepsCount()).toEqual(2);
+      });
+
       it('displays the first step', function() {
         popup = findTourPopup(elm, 1);
         expect(popup.length).toEqual(1);
